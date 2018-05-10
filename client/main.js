@@ -1,9 +1,12 @@
-import React from 'react';
-import { Meteor } from 'meteor/meteor';
-import { render } from 'react-dom';
+import '../imports/ui/templates.html'
+import '../imports/startup/routes.js'
 
-import App from '../imports/ui/App.jsx';
+// import React from 'react';
+// import { Meteor } from 'meteor/meteor';
+// import { render } from 'react-dom';
 
-Meteor.startup(() => {
-  render(<App />, document.getElementById('render-target'));
-});
+// import App from '../imports/ui/App.jsx';
+
+// Meteor.startup(() => {
+//   render(<App />, document.getElementById('render-target'));
+// });
