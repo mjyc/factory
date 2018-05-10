@@ -1,29 +1,9 @@
+import '../ui/templates.js'
+
 Router.route('/', {
-  template: 'home'
+  template: 'main'
 });
 
-Router.route('/about', {
-  template: 'aboutPage'
+Router.route('/edit', {
+  template: 'edit'
 });
-
-// import './program_templates.js';
-
-// Router.route('programs_list', {
-//   path: '/programs',
-//   template: 'programs_list',
-//   waitOn: function() {
-//     const subs = [
-//       Meteor.subscribe('new_programs'),
-//     ];
-//   },
-// });
-
-// Router.route('program_editor', {
-//   path: '/program/:_id/edit',
-//   template: 'program_editor',
-//   waitOn: function() {
-//     const subs = [
-//       Meteor.subscribe('new_programs', { _id: this.params._id }),
-//     ];
-//   },
-// });
