@@ -2,7 +2,6 @@ import React, { Component } from 'react';
 // import { withTracker } from 'meteor/react-meteor-data';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
-import getMuiTheme from 'material-ui/styles/getMuiTheme';
 import {
   Table,
   TableBody,
