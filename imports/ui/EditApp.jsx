@@ -1,7 +1,6 @@
 import 'codemirror/lib/codemirror.css';
 import CodeMirror from 'react-codemirror';
-import React from 'react';
-// import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
+import React, { Component } from 'react';
 import {
   Table,
   TableBody,
@@ -13,7 +12,7 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 
 // MainApp component - represents the whole app for the edit page
-export default class EditApp extends React.Component {
+export default class EditApp extends Component {
   constructor(props) {
     super(props);
   }
@@ -25,7 +24,12 @@ export default class EditApp extends React.Component {
     };
     return (
       <div>
+        <div>
         <CodeMirror value={value} options={options} />
+        </div>
+        <div>
+          <p>Robot face panel</p>
+        </div>
       </div>
     );
   }

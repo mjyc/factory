@@ -1,6 +1,3 @@
-import React, { Component } from 'react';
-// import { withTracker } from 'meteor/react-meteor-data';
-
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
@@ -11,6 +8,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import React, { Component } from 'react';
 
 // MainApp component - represents the whole app for the main page
 export default class MainApp extends Component {
@@ -59,7 +57,3 @@ export default class MainApp extends Component {
     )
   }
 }
-
-// export default withTracker(() => {
-//   return {};
-// })(App);
