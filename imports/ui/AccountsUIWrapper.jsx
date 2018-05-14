@@ -24,11 +24,12 @@ class AccountsUIWrapper extends Component {
       )
     }
 
-    const state = this.props.location.state || {from: {pathname: '/'}};
-    if (!state.from) { state.from = {pathname: '/'}; }
+    // redirect to where the user came from
+    let {from} = this.props.location.state || {from: {pathname: '/'}};
+    if (!from) { from = {pathname: '/'}; }
 
     if (!this.props.loggingIn && this.props.currentUser) {
-      return <Redirect to={state.from} />
+      return <Redirect to={from} />
     }
 
     return <span ref="container" />;

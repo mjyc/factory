@@ -11,22 +11,20 @@ import {
 import RaisedButton from 'material-ui/RaisedButton';
 import PrivatePage from './PrivatePage.jsx'
 
-// MainApp component - represents the whole app for the main page
-export default class MainApp extends Component {
+// MainPage component - represents the whole app for the main page
+export default class MainPage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
-    console.log('MainApp', this.props);
-
     return (
       <PrivatePage>
         <MuiThemeProvider>
           <div>
           <RaisedButton
-            label="logout"
-            onClick={(ev) => {
+            label="Log out"
+            onClick={() => {
               Meteor.logout();
             }}
           />
