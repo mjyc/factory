@@ -18,13 +18,18 @@ class AccountsUIWrapper extends Component {
     Blaze.remove(this.view);
   }
   render() {
-    console.log('AccountsUIWrapper', this.props);
+    if (this.props.loggingIn) {
+      return (
+        <div>Logging in...</div>
+      )
+    }
 
-    const {from} = this.props.location.state || {from: {pathname: '/'}};
+    const state = this.props.location.state || {from: {pathname: '/'}};
+    if (!state.from) { state.from = {pathname: '/'}; }
 
-    // if (this.props.currentUser) {
-    //   return <Redirect to={from} />
-    // }
+    if (!this.props.loggingIn && this.props.currentUser) {
+      return <Redirect to={state.from} />
+    }
 
     return <span ref="container" />;
   }
@@ -32,6 +37,7 @@ class AccountsUIWrapper extends Component {
 
 export default withTracker(() => {
   return {
+    loggingIn: Meteor.loggingIn(),
     currentUser: Meteor.user(),
   };
 })(AccountsUIWrapper);

@@ -27,7 +27,7 @@ export default class EditApp extends Component {
     return (
       <div>
         <div>
-        <CodeMirror value={value} options={options} />
+          <CodeMirror value={value} options={options} />
         </div>
         <div>
           <p>Robot face panel</p>

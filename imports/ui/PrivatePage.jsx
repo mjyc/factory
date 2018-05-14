@@ -5,29 +5,18 @@ import { withTracker } from 'meteor/react-meteor-data';
 class PrivatePage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      ready: false
-    }
-  }
-
-  componentWillReceiveProps(nextProps) {
-    if (nextProps.currentUser) {
-      Meteor.defer(() => {
-        this.setState({ready: true});
-      });
-    }
   }
 
   render() {
     const props = this.props;
 
-    if (!this.state.ready) {
+    if (props.loggingIn) {
       return (
-        <div>Loading...</div>
+        <div>Logging in...</div>
       )
     }
 
-    if (!props.currentUser) {
+    if (!props.loggingIn && !props.currentUser) {
       return (
         <Redirect
           to={{
@@ -46,6 +35,7 @@ class PrivatePage extends Component {
 
 export default withTracker(() => {
   return {
+    loggingIn: Meteor.loggingIn(),
     currentUser: Meteor.user(),
   };
 })(PrivatePage);
