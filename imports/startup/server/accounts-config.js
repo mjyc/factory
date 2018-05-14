@@ -1,10 +1,10 @@
 export const configureAccounts = () => {
   ServiceConfiguration.configurations.remove({
-    service: "google"
+    service: 'google'
   });
 
   ServiceConfiguration.configurations.insert({
-    service: "google",
+    service: 'google',
     clientId: Meteor.settings.googleAuth.clientId,
     secret: Meteor.settings.googleAuth.secret
   });

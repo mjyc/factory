@@ -9,6 +9,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import React, { Component } from 'react';
+// import { withTracker } from 'meteor/react-meteor-data';
 
 // MainApp component - represents the whole app for the main page
 export default class MainApp extends Component {
@@ -44,10 +45,10 @@ export default class MainApp extends Component {
                   </TableRowColumn>
                   <TableRowColumn>
                     <RaisedButton
-                      label='Edit'
+                      label="Edit"
                     />
                     <RaisedButton
-                      label='Delete'
+                      label="Delete"
                     />
                   </TableRowColumn>
                 </TableRow>
@@ -57,3 +58,9 @@ export default class MainApp extends Component {
     )
   }
 }
+
+// export default withTracker(() => {
+//   return {
+//     currentUser: Meteor.user(),
+//   };
+// })(MainApp);

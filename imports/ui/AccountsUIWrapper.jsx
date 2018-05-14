@@ -1,20 +1,35 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
+import { Redirect } from 'react-router';
 import { Template } from 'meteor/templating';
 import { Blaze } from 'meteor/blaze';
+import { withTracker } from 'meteor/react-meteor-data';
 
-export default class AccountsUIWrapper extends Component {
+class AccountsUIWrapper extends Component {
+  constructor(props) {
+    super(props);
+  }
+
   componentDidMount() {
-    // Use Meteor Blaze to render login buttons
     this.view = Blaze.render(Template.loginButtons,
       ReactDOM.findDOMNode(this.refs.container));
   }
   componentWillUnmount() {
-    // Clean up Blaze view
     Blaze.remove(this.view);
   }
   render() {
-    // Just render a placeholder container that will be filled in
+    const {from} = this.props.location.state || {from: {pathname: '/'}};
+
+    // if (this.props.currentUser) {
+    //   return <Redirect to={from} />
+    // }
+
     return <span ref="container" />;
   }
 }
+
+export default withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+  };
+})(AccountsUIWrapper);
