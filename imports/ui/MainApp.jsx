@@ -1,3 +1,5 @@
+import React, { Component } from 'react';
+import { Redirect } from 'react-router';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
@@ -8,16 +10,47 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import React, { Component } from 'react';
-// import { withTracker } from 'meteor/react-meteor-data';
+import { withTracker } from 'meteor/react-meteor-data';
 
 // MainApp component - represents the whole app for the main page
-export default class MainApp extends Component {
+class MainApp extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ready: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser) {
+      Meteor.defer(() => {
+        this.setState({ready: true});
+      });
+    }
   }
 
   render() {
+    console.log('MainApp', this.props);
+
+    const location = this.props.location;
+
+    if (!this.state.ready) {
+      return (
+        <div>Loading...</div>
+      )
+    }
+
+    if (!this.props.currentUser) {
+      return (
+        <Redirect
+          to={{
+            pathname: '/login',
+            state: {from: location}
+          }}
+        />
+      )
+    }
+
     return (
       <MuiThemeProvider>
         <Table
@@ -59,8 +92,8 @@ export default class MainApp extends Component {
   }
 }
 
-// export default withTracker(() => {
-//   return {
-//     currentUser: Meteor.user(),
-//   };
-// })(MainApp);
+export default withTracker(() => {
+  return {
+    currentUser: Meteor.user(),
+  };
+})(MainApp);

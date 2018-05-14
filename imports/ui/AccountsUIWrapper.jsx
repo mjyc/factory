@@ -18,6 +18,8 @@ class AccountsUIWrapper extends Component {
     Blaze.remove(this.view);
   }
   render() {
+    console.log('AccountsUIWrapper', this.props);
+
     const {from} = this.props.location.state || {from: {pathname: '/'}};
 
     // if (this.props.currentUser) {

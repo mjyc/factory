@@ -18,6 +18,8 @@ export default class EditApp extends Component {
   }
 
   render() {
+    console.log('EditApp', this.props);
+
     const value = `console.log('Hello World!');`
     const options = {
       lineNumbers: true

@@ -5,12 +5,27 @@ import { withTracker } from 'meteor/react-meteor-data';
 class PrivatePage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      ready: false
+    }
+  }
+
+  componentWillReceiveProps(nextProps) {
+    if (nextProps.currentUser) {
+      Meteor.defer(() => {
+        this.setState({ready: true});
+      });
+    }
   }
 
   render() {
     const props = this.props;
 
-    console.log('PrivatePage', props);
+    if (!this.state.ready) {
+      return (
+        <div>Loading...</div>
+      )
+    }
 
     if (!props.currentUser) {
       return (
