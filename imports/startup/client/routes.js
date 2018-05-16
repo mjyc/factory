@@ -14,7 +14,7 @@ export const renderRoutes = () => (
     <Switch>
       <Route exact path="/login" component={AccountsUIWrapper}/>
       <Route exact path="/" component={MainPage}/>
-      <Route exact path="/edit" component={EditPage}/>
+      <Route exact path="/programs/:id" component={EditPage}/>
     </Switch>
   </Router>
 );

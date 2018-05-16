@@ -1,27 +1,27 @@
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
-import { check } from 'meteor/check';
+import { check, Match } from 'meteor/check';
 
 export const Programs = new Mongo.Collection('programs');
 
 if (Meteor.isServer) {
-  Meteor.publish('programs', function programsPublication() {
-    return Programs.find({
-      $or: [
-        { private: { $ne: true } },
-        { owner: this.userId },
-      ],
-    });
+  Meteor.publish('programs', function programsPublication(id) {
+    // TODO: consider supporting "private" programs
+    const query = {owner: this.userId};
+    if (id) { query._id = id; }
+    return Programs.find(query);
   });
 
   Meteor.methods({
-    'programs.insert'() {
+    'programs.insert'(name = '') {
+      check(name, String);
+
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
       Programs.insert({
-        name: '',
+        name: name,
         createdAt: new Date(),
         updatedAt: new Date(),
         owner: this.userId,

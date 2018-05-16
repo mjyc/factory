@@ -26,15 +26,15 @@ class MainPage extends Component {
         <MuiThemeProvider>
           <div>
           <RaisedButton
-            label="Log out"
+            label="New"
             onClick={() => {
-              Meteor.logout();
+              Meteor.call('programs.insert', 'Untitled');
             }}
           />
           <RaisedButton
-            label="New"
+            label="Log out"
             onClick={() => {
-              Meteor.call('programs.insert');
+              Meteor.logout();
             }}
           />
           <Table
@@ -57,11 +57,14 @@ class MainPage extends Component {
             {
               this.props.programs.map((program) => {
                 return (
-                  <TableRow key={'program._id'} >
-                    <TableRowColumn>{'program._id'}</TableRowColumn>
-                    <TableRowColumn>{'program.title'}</TableRowColumn>
+                  <TableRow key={program._id} >
+                    <TableRowColumn>{program._id}</TableRowColumn>
+                    <TableRowColumn>{program.title}</TableRowColumn>
                     <TableRowColumn>
-                    {'time'}
+                    {
+                      // slice off a name of the day, e.g. 'Mon'
+                      program.updatedAt.toDateString().slice(4)
+                    }
                     </TableRowColumn>
                     <TableRowColumn>
                       <RaisedButton
@@ -69,6 +72,9 @@ class MainPage extends Component {
                       />
                       <RaisedButton
                         label="Delete"
+                        onClick={() => {
+                          Meteor.call('programs.remove', program._id);
+                        }}
                       />
                     </TableRowColumn>
                   </TableRow>
@@ -85,12 +91,12 @@ class MainPage extends Component {
 }
 
 export default withTracker(() => {
-  // const facesHandle = Meteor.subscribe('faces', faceQuery);
-  // const loading = !facesHandle.ready();
-  // const face = Faces.findOne();
-  Meteor.subscribe('programs');
+  const programsHandle = Meteor.subscribe('programs');
+  const loading = !programsHandle.ready();
+  const programs = Programs.find().fetch();
 
   return {
-    programs: Programs.find().fetch(),
+    loading,
+    programs,
   };
 })(MainPage);
