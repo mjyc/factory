@@ -13,15 +13,17 @@ if (Meteor.isServer) {
   });
 
   Meteor.methods({
-    'programs.insert'(name = '') {
+    'programs.insert'(name = '', code = '') {
       check(name, String);
+      check(code, String);
 
       if (!this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
       Programs.insert({
-        name: name,
+        name,
+        code,
         createdAt: new Date(),
         updatedAt: new Date(),
         owner: this.userId,
@@ -39,6 +41,28 @@ if (Meteor.isServer) {
       }
 
       Programs.remove(programId);
+    },
+
+    'programs.setName'(programId, name) {
+      check(programId, String);
+      check(name, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      Programs.update(programId, {$set: {name}})
+    },
+
+    'programs.setCode'(programId, code) {
+      check(programId, String);
+      check(code, String);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      Programs.update(programId, {$set: {code}})
     },
   });
 }

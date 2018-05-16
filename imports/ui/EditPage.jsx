@@ -1,6 +1,7 @@
 import 'codemirror/lib/codemirror.css';
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
+import 'codemirror/mode/javascript/javascript';
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
@@ -16,31 +17,31 @@ class EditPage extends Component {
   }
 
   render() {
-    const value = `console.log('Hello World!');`
-    const options = {
-      lineNumbers: true
-    };
-
     if (this.props.loading) {
       return (
-        <div>Logging in...</div>
+        <div>Loading...</div>
       )
     }
 
+    const history = this.props.history;
+    const options = {
+      lineNumbers: true,
+      mode: 'javascript',
+    };
     return (
       <PrivatePage>
         <MuiThemeProvider>
           <div>
             <RaisedButton
-              label="Back"
+              label="Home"
               onClick={() => {
-                console.log('redirect home');
+                history.push('/');
               }}
             />
             <RaisedButton
               label="Run"
               onClick={() => {
-                console.log('run code');
+                console.log(`run: ${this.props.program.code}`);
               }}
             />
             <RaisedButton
@@ -51,12 +52,21 @@ class EditPage extends Component {
             />
             <div>
               <TextField
-                value={this.props.program.title}
-                floatingLabelText='title'
+                value={this.props.program.name}
+                floatingLabelText='name'
+                onChange={(event, value) => {
+                  Meteor.call('programs.setName', this.props.program._id, value);
+                }}
               />
             </div>
             <div>
-              <CodeMirror value={value} options={options} />
+              <CodeMirror
+                value={this.props.program.code}
+                options={options}
+                onChange={(value) => {
+                  Meteor.call('programs.setCode', this.props.program._id, value);
+                }}
+              />
             </div>
             <div>
               <p>Render robot face here</p>

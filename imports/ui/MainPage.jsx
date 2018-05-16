@@ -21,6 +21,13 @@ class MainPage extends Component {
   }
 
   render() {
+    if (this.props.loading) {
+      return (
+        <div>Loading...</div>
+      )
+    }
+
+    const history = this.props.history;
     return (
       <PrivatePage>
         <MuiThemeProvider>
@@ -59,7 +66,7 @@ class MainPage extends Component {
                 return (
                   <TableRow key={program._id} >
                     <TableRowColumn>{program._id}</TableRowColumn>
-                    <TableRowColumn>{program.title}</TableRowColumn>
+                    <TableRowColumn>{program.name}</TableRowColumn>
                     <TableRowColumn>
                     {
                       // slice off a name of the day, e.g. 'Mon'
@@ -69,10 +76,13 @@ class MainPage extends Component {
                     <TableRowColumn>
                       <RaisedButton
                         label="Edit"
+                        onClick={() => {
+                          history.push(`/programs/${program._id}`);
+                        }}
                       />
                       <RaisedButton
                         label="Delete"
-                        onClick={() => {
+                        onClick={function() {
                           Meteor.call('programs.remove', program._id);
                         }}
                       />
