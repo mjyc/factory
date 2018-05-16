@@ -1,6 +1,7 @@
 import 'codemirror/lib/codemirror.css';
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
+import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import { Meteor } from 'meteor/meteor';
 import PrivatePage from './PrivatePage.jsx'
@@ -18,20 +19,28 @@ export default class EditPage extends Component {
     };
     return (
       <PrivatePage>
-        <div>
-          <RaisedButton
-            label="Log out"
-            onClick={() => {
-              Meteor.logout();
-            }}
-          />
+        <MuiThemeProvider>
           <div>
-            <CodeMirror value={value} options={options} />
+            <RaisedButton
+              label="Log out"
+              onClick={() => {
+                Meteor.logout();
+              }}
+            />
+            <RaisedButton
+              label="Run"
+              onClick={() => {
+                console.log('run code');
+              }}
+            />
+            <div>
+              <CodeMirror value={value} options={options} />
+            </div>
+            <div>
+              <p>Render robot face here</p>
+            </div>
           </div>
-          <div>
-            <p>Robot face panel</p>
-          </div>
-        </div>
+        </MuiThemeProvider>
       </PrivatePage>
     );
   }

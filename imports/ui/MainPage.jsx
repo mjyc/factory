@@ -9,10 +9,13 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
 import PrivatePage from './PrivatePage.jsx'
+import { Programs } from '../api/programs.js'
 
 // MainPage component - represents the whole app for the main page
-export default class MainPage extends Component {
+class MainPage extends Component {
   constructor(props) {
     super(props);
   }
@@ -26,6 +29,12 @@ export default class MainPage extends Component {
             label="Log out"
             onClick={() => {
               Meteor.logout();
+            }}
+          />
+          <RaisedButton
+            label="New"
+            onClick={() => {
+              Meteor.call('programs.insert');
             }}
           />
           <Table
@@ -45,6 +54,9 @@ export default class MainPage extends Component {
               </TableRow>
             </TableHeader>
             <TableBody displayRowCheckbox={false}>
+            {
+              this.props.programs.map((program) => {
+                return (
                   <TableRow key={'program._id'} >
                     <TableRowColumn>{'program._id'}</TableRowColumn>
                     <TableRowColumn>{'program.title'}</TableRowColumn>
@@ -60,6 +72,9 @@ export default class MainPage extends Component {
                       />
                     </TableRowColumn>
                   </TableRow>
+                );
+              })
+            }
             </TableBody>
           </Table>
           </div>
@@ -68,3 +83,14 @@ export default class MainPage extends Component {
     )
   }
 }
+
+export default withTracker(() => {
+  // const facesHandle = Meteor.subscribe('faces', faceQuery);
+  // const loading = !facesHandle.ready();
+  // const face = Faces.findOne();
+  Meteor.subscribe('programs');
+
+  return {
+    programs: Programs.find().fetch(),
+  };
+})(MainPage);
