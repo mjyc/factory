@@ -1,7 +1,8 @@
 import 'codemirror/lib/codemirror.css';
-import CodeMirror from 'react-codemirror';
 import React, { Component } from 'react';
+import CodeMirror from 'react-codemirror';
 import RaisedButton from 'material-ui/RaisedButton';
+import { Meteor } from 'meteor/meteor';
 import PrivatePage from './PrivatePage.jsx'
 
 // EdiPage component - represents the whole app for the edit page

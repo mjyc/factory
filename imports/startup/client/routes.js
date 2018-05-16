@@ -1,6 +1,5 @@
 import React from 'react';
 import { Router, Route, Switch, Redirect } from 'react-router';
-import {  } from 'react-router';
 import createBrowserHistory from 'history/createBrowserHistory';
 
 // route components
