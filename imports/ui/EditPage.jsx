@@ -7,6 +7,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
+import { SimpleFace } from 'meteor/simple-face'
 import PrivatePage from './PrivatePage.jsx'
 import { Programs } from '../api/programs.js'
 
@@ -32,24 +33,27 @@ class EditPage extends Component {
       <PrivatePage>
         <MuiThemeProvider>
           <div>
-            <RaisedButton
-              label="Home"
-              onClick={() => {
-                history.push('/');
-              }}
-            />
-            <RaisedButton
-              label="Run"
-              onClick={() => {
-                console.log(`run: ${this.props.program.code}`);
-              }}
-            />
-            <RaisedButton
-              label="Log out"
-              onClick={() => {
-                Meteor.logout();
-              }}
-            />
+            <div>
+              <RaisedButton
+                label="Home"
+                onClick={() => {
+                  history.push('/');
+                }}
+              />
+              <RaisedButton
+                label="Run"
+                onClick={() => {
+                  console.log(`run: ${this.props.program.code}`);
+                  Meteor.call('program_executor.run', this.props.program.code);
+                }}
+              />
+              <RaisedButton
+                label="Log out"
+                onClick={() => {
+                  Meteor.logout();
+                }}
+              />
+            </div>
             <div>
               <TextField
                 value={this.props.program.name}
@@ -69,7 +73,7 @@ class EditPage extends Component {
               />
             </div>
             <div>
-              <p>Render robot face here</p>
+              <SimpleFace faceQuery={{owner: Meteor.userId()}} />
             </div>
           </div>
         </MuiThemeProvider>
