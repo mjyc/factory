@@ -14,7 +14,13 @@ class AccountsUIWrapper extends Component {
     this.view = Blaze.render(Template.loginButtons,
       ReactDOM.findDOMNode(this.refs.container));
   }
-  componentWillUnmount() {
+  componentDidUpdate(prevProps) {
+    if (prevProps.loggingIn && !prevProps.currentUser) {
+      this.view = Blaze.render(Template.loginButtons,
+        ReactDOM.findDOMNode(this.refs.container));
+    }
+  }
+  componentWillUnmount(prev) {
     Blaze.remove(this.view);
   }
   render() {
