@@ -1,3 +1,4 @@
+import * as log from 'loglevel';
 import 'codemirror/lib/codemirror.css';
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';
@@ -10,6 +11,8 @@ import { withTracker } from 'meteor/react-meteor-data';
 import { SimpleFace } from 'meteor/simple-face'
 import PrivatePage from './PrivatePage.jsx'
 import { Programs } from '../api/programs.js'
+
+const logger = log.getLogger('EditPage');
 
 // EdiPage component - represents the whole app for the edit page
 class EditPage extends Component {
@@ -43,7 +46,7 @@ class EditPage extends Component {
               <RaisedButton
                 label="Run"
                 onClick={() => {
-                  console.log(`run: ${this.props.program.code}`);
+                  logger.log(`run: ${this.props.program.code}`);
                   Meteor.call('program_executor.run', this.props.program.code);
                 }}
               />

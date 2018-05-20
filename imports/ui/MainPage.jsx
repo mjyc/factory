@@ -32,67 +32,69 @@ class MainPage extends Component {
       <PrivatePage>
         <MuiThemeProvider>
           <div>
-          <RaisedButton
-            label="New"
-            onClick={() => {
-              Meteor.call('programs.insert', 'Untitled');
-            }}
-          />
-          <RaisedButton
-            label="Log out"
-            onClick={() => {
-              Meteor.logout();
-            }}
-          />
-          <Table
-            fixedHeader={true}
-            selectable={false}
-            style={{ margin: 0 }}
-          >
-            <TableHeader
-              displaySelectAll={false}
-              adjustForCheckbox={false}
+            <RaisedButton
+              label="New"
+              onClick={() => {
+                Meteor.call('programs.insert', 'Untitled');
+              }}
+            />
+            <RaisedButton
+              label="Log out"
+              onClick={() => {
+                Meteor.logout();
+              }}
+            />
+          </div>
+          <div>
+            <Table
+              fixedHeader={true}
+              selectable={false}
+              style={{ margin: 0 }}
             >
-              <TableRow>
-                <TableHeaderColumn>ID</TableHeaderColumn>
-                <TableHeaderColumn>Title</TableHeaderColumn>
-                <TableHeaderColumn>Last modified</TableHeaderColumn>
-                <TableHeaderColumn>Options</TableHeaderColumn>
-              </TableRow>
-            </TableHeader>
-            <TableBody displayRowCheckbox={false}>
-            {
-              this.props.programs.map((program) => {
-                return (
-                  <TableRow key={program._id} >
-                    <TableRowColumn>{program._id}</TableRowColumn>
-                    <TableRowColumn>{program.name}</TableRowColumn>
-                    <TableRowColumn>
-                    {
-                      // slice off a name of the day, e.g. 'Mon'
-                      program.updatedAt.toDateString().slice(4)
-                    }
-                    </TableRowColumn>
-                    <TableRowColumn>
-                      <RaisedButton
-                        label="Edit"
-                        onClick={() => {
-                          history.push(`/programs/${program._id}`);
-                        }}
-                      />
-                      <RaisedButton
-                        label="Delete"
-                        onClick={function() {
-                          Meteor.call('programs.remove', program._id);
-                        }}
-                      />
-                    </TableRowColumn>
-                  </TableRow>
-                );
-              })
-            }
-            </TableBody>
-          </Table>
+              <TableHeader
+                displaySelectAll={false}
+                adjustForCheckbox={false}
+              >
+                <TableRow>
+                  <TableHeaderColumn>ID</TableHeaderColumn>
+                  <TableHeaderColumn>Title</TableHeaderColumn>
+                  <TableHeaderColumn>Last modified</TableHeaderColumn>
+                  <TableHeaderColumn>Options</TableHeaderColumn>
+                </TableRow>
+              </TableHeader>
+              <TableBody displayRowCheckbox={false}>
+              {
+                this.props.programs.map((program) => {
+                  return (
+                    <TableRow key={program._id} >
+                      <TableRowColumn>{program._id}</TableRowColumn>
+                      <TableRowColumn>{program.name}</TableRowColumn>
+                      <TableRowColumn>
+                      {
+                        // slice off a name of the day, e.g. 'Mon'
+                        program.updatedAt.toDateString().slice(4)
+                      }
+                      </TableRowColumn>
+                      <TableRowColumn>
+                        <RaisedButton
+                          label="Edit"
+                          onClick={() => {
+                            history.push(`/programs/${program._id}`);
+                          }}
+                        />
+                        <RaisedButton
+                          label="Delete"
+                          onClick={function() {
+                            Meteor.call('programs.remove', program._id);
+                          }}
+                        />
+                      </TableRowColumn>
+                    </TableRow>
+                  );
+                })
+              }
+              </TableBody>
+            </Table>
           </div>
         </MuiThemeProvider>
       </PrivatePage>
