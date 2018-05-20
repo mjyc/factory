@@ -1,0 +1,3 @@
+[submodule "packages/simple-face"]
+	path = packages/simple-face
+	url = git@gitlab.cs.washington.edu:mjyc/simple-face.git
