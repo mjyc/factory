@@ -1,20 +1,32 @@
+import util from 'util';
+import * as log from 'loglevel';
 import { Meteor } from 'meteor/meteor';
 import {
-  defaultAction,
   Speechbubbles,
   Speech,
 } from 'meteor/simple-face';
 
+const logger = log.getLogger('fixtures');
 
-// Insert defaultAction to action collections on user creation
+const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
-const actionCollections = [
-  Speechbubbles,
-  Speech,
-];
 
-Meteor.users.after.insert(function(userId, doc) {
-  actionCollections.map((collection) => {
-    collection.insert(Object.assign({owner: this._id}, defaultAction));
-  });
-});
+// Add and remove actions on user creation and deletion
+Meteor.users.find().observeChanges({
+
+  added: (id, fields) => {
+    logger.debug(`[Meteor.users.find().observeChanges added] id: ${id}, fields: ${obj2str(fields)}`);
+
+    Meteor.call('speechbubbles.initialize', id);
+    Meteor.call('speech.addUser', id);
+  },
+
+  removed: (id) => {
+    logger.debug(`[Meteor.users.find().observeChanges removed] id: ${id}`);
+
+    [Speechbubbles, Speech].map((collection) => {
+      collection.remove({owner: id});
+    });
+  }
+
+})
