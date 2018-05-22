@@ -6,7 +6,7 @@ export const Programs = new Mongo.Collection('programs');
 
 if (Meteor.isServer) {
   Meteor.publish('programs', function programsPublication(id) {
-    // TODO: consider supporting "private" programs
+    // TODO: support "private" programs
     const query = {owner: this.userId};
     if (id) { query._id = id; }
     return Programs.find(query);

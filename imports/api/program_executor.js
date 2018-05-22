@@ -22,7 +22,7 @@ if (Meteor.isServer) {
     });
   }
 
-  // TODO: consider creating
+  // TODO: update this
   const getSpeechbubbleActions = ({userId = ''} = {}) => {
     const speechbubbleRobot = Speechbubbles.findOne({owner: userId, role: 'robot'});
     const speechbubbleHuman = Speechbubbles.findOne({owner: userId, role: 'human'});

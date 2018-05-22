@@ -24,6 +24,7 @@ Meteor.users.find().observeChanges({
   removed: (id) => {
     logger.debug(`[Meteor.users.find().observeChanges removed] id: ${id}`);
 
+    // TODO: use Meteor method instead
     [Speechbubbles, Speech].map((collection) => {
       collection.remove({owner: id});
     });
