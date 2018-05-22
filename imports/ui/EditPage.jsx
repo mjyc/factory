@@ -1,4 +1,4 @@
-import * as log from 'loglevel';
+import log from 'meteor/mjyc:loglevel';
 import 'codemirror/lib/codemirror.css';
 import React, { Component } from 'react';
 import CodeMirror from 'react-codemirror';

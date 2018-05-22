@@ -1,5 +1,5 @@
 import util from 'util';
-import * as log from 'loglevel';  // TODO: figure out why loglevel is not working
+import log from 'meteor/mjyc:loglevel';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
