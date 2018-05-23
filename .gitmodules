@@ -1,3 +1,6 @@
 [submodule "packages/simple-face"]
 	path = packages/simple-face
 	url = git@gitlab.cs.washington.edu:mjyc/simple-face.git
+[submodule "packages/mjyc:loglevel"]
+	path = packages/simple-face
+	url = git@github.com:mjyc/meteor-loglevel.git
