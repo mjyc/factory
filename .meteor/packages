@@ -23,5 +23,5 @@ accounts-password@1.5.0
 react-meteor-data
 accounts-google
 service-configuration
-simple-face
 mjyc:loglevel
+mjyc:simple-face
