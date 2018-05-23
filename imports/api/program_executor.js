@@ -7,7 +7,7 @@ import {
   Speechbubbles,
   DisplayMessageAction,
   AskMultipleChoiceAction,
-} from 'meteor/simple-face'
+} from 'meteor/mjyc:simple-face'
 import { Programs } from './programs.js'
 
 const logger = log.getLogger('program_executor');

@@ -8,7 +8,7 @@ import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
 import { Meteor } from 'meteor/meteor';
 import { withTracker } from 'meteor/react-meteor-data';
-import { SimpleFace } from 'meteor/simple-face'
+import { SimpleFace } from 'meteor/mjyc:simple-face'
 import PrivatePage from './PrivatePage.jsx'
 import { Programs } from '../api/programs.js'
 

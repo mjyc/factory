@@ -10,7 +10,7 @@ const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 import {
   Speechbubbles,
   Speech,
-} from 'meteor/simple-face';
+} from 'meteor/mjyc:simple-face';
 
 // Add and remove actions on user creation and deletion
 Meteor.users.find().observeChanges({
