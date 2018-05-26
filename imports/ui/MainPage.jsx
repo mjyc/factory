@@ -1,4 +1,9 @@
 import React, { Component } from 'react';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+
+import { Programs } from '../api/programs.js'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import {
   Table,
@@ -9,10 +14,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
 import PrivatePage from './PrivatePage.jsx'
-import { Programs } from '../api/programs.js'
 
 // MainPage component - represents the whole app for the main page
 class MainPage extends Component {
@@ -32,11 +34,18 @@ class MainPage extends Component {
       <PrivatePage>
         <MuiThemeProvider>
           <div>
+
             <div>
               <RaisedButton
                 label="New"
                 onClick={() => {
                   Meteor.call('programs.insert', 'Untitled');
+                }}
+              />
+              <RaisedButton
+                label="Settings"
+                onClick={() => {
+                  history.push('/settings');
                 }}
               />
               <RaisedButton
@@ -46,6 +55,7 @@ class MainPage extends Component {
                 }}
               />
             </div>
+
             <div>
               <Table
                 fixedHeader={true}
@@ -97,6 +107,7 @@ class MainPage extends Component {
                 </TableBody>
               </Table>
             </div>
+
           </div>
         </MuiThemeProvider>
       </PrivatePage>

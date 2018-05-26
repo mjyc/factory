@@ -1,16 +1,18 @@
 import log from 'meteor/mjyc:loglevel';
-import 'codemirror/lib/codemirror.css';
 import React, { Component } from 'react';
-import CodeMirror from 'react-codemirror';
-import 'codemirror/mode/javascript/javascript';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+
+import { Programs } from '../api/programs.js'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
+import CodeMirror from 'react-codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
 import { SimpleFace } from 'meteor/mjyc:simple-face'
 import PrivatePage from './PrivatePage.jsx'
-import { Programs } from '../api/programs.js'
 
 const logger = log.getLogger('EditPage');
 
