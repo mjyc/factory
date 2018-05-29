@@ -21,6 +21,7 @@ Meteor.users.find().observeChanges({
     Meteor.call('speechbubbles.initialize', id);
     Meteor.call('speech.addUser', id);
     Meteor.call('media_actions.addUser', id);
+    Meteor.call('vision_actions.addUser', id);
   },
 
   removed: (id) => {
