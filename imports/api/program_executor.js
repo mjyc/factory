@@ -3,11 +3,8 @@ import log from 'meteor/mjyc:loglevel';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
-import {
-  Speechbubbles,
-  DisplayMessageAction,
-  AskMultipleChoiceAction,
-} from 'meteor/mjyc:simple-face'
+
+import { Speechbubbles } from 'meteor/mjyc:simple-face'
 import { Programs } from './programs.js'
 
 const logger = log.getLogger('program_executor');
@@ -28,11 +25,17 @@ if (Meteor.isServer) {
     const speechbubbleHuman = Speechbubbles.findOne({owner: userId, role: 'human'});
 
     return {
-      displayMessageLeft: new DisplayMessageAction({speechbubbleId: speechbubbleRobot._id}),
-      displayMessageRight: new DisplayMessageAction({speechbubbleId: speechbubbleHuman._id}),
-      askMultipleChoiceLeft: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
-      askMultipleChoiceRight: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
-    }
+      displayMessageLeft: null,
+      displayMessageRight: null,
+      askMultipleChoiceLeft: null,
+      askMultipleChoiceRight: null,
+    };
+    // return {
+    //   displayMessageLeft: new DisplayMessageAction({speechbubbleId: speechbubbleRobot._id}),
+    //   displayMessageRight: new DisplayMessageAction({speechbubbleId: speechbubbleHuman._id}),
+    //   askMultipleChoiceLeft: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
+    //   askMultipleChoiceRight: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
+    // }
   }
 
   Meteor.methods({
