@@ -28,7 +28,7 @@ Meteor.users.find().observeChanges({
   removed: (id) => {
     logger.debug(`[Meteor.users.find().observeChanges removed] id: ${id}`);
 
-    // TODO: use Meteor method instead
+    // TODO: use Meteor method instead; need to remove more docs than as is
     [Speechbubbles, Speech].map((collection) => {
       collection.remove({owner: id});
     });
