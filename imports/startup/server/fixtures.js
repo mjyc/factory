@@ -5,6 +5,9 @@ import { Meteor } from 'meteor/meteor';
 import {
   Speechbubbles,
   Speech,
+  MediaActions,
+  VisionActions,
+  FacialExpressionActions,
 } from 'meteor/mjyc:simple-face';
 
 const logger = log.getLogger('fixtures');
@@ -23,13 +26,14 @@ Meteor.users.find().observeChanges({
     Meteor.call('speech_actions.addUser', id);
     Meteor.call('media_actions.addUser', id);
     Meteor.call('vision_actions.addUser', id);
+    Meteor.call('facial_expression_actions.addUser', id);
   },
 
   removed: (id) => {
     logger.debug(`[Meteor.users.find().observeChanges removed] id: ${id}`);
 
     // TODO: use Meteor method instead; need to remove more docs than as is
-    [Speechbubbles, Speech].map((collection) => {
+    [Speechbubbles, Speech, MediaActions, VisionActions, FacialExpressionActions].map((collection) => {
       collection.remove({owner: id});
     });
   }
