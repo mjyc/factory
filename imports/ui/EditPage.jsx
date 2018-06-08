@@ -11,7 +11,10 @@ import TextField from 'material-ui/TextField';
 import CodeMirror from 'react-codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
-import { SimpleFace } from 'meteor/mjyc:simple-face'
+import {
+  SimpleFace,
+  VisionViz,
+} from 'meteor/mjyc:simple-face'
 import PrivatePage from './PrivatePage.jsx'
 
 const logger = log.getLogger('EditPage');
@@ -20,6 +23,9 @@ const logger = log.getLogger('EditPage');
 class EditPage extends Component {
   constructor(props) {
     super(props);
+    this.state = {
+      video: null,
+    }
   }
 
   render() {
@@ -78,7 +84,16 @@ class EditPage extends Component {
               />
             </div>
             <div>
-              <SimpleFace faceQuery={{owner: Meteor.userId()}} />
+              <SimpleFace
+                faceQuery={{owner: Meteor.userId()}}
+                setVideo={(video) => this.setState({video})}
+              />
+            </div>
+            <div>
+              <VisionViz
+                detectionQuery={{owner: Meteor.userId()}}
+                video={this.state.video}
+              />
             </div>
           </div>
         </MuiThemeProvider>
