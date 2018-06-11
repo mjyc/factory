@@ -1,4 +1,4 @@
-import log from 'meteor/mjyc:loglevel';
+
 import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
