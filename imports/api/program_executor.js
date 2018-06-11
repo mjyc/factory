@@ -4,7 +4,12 @@ import { Meteor } from 'meteor/meteor';
 import { Mongo } from 'meteor/mongo';
 import { check, Match } from 'meteor/check';
 
-import { Speechbubbles } from 'meteor/mjyc:simple-face'
+import { SpeechbubbleAction } from '../api/speechbubbles.js';
+import { SpeechActions } from '../api/speech.js';
+import { MediaActions } from '../api/media.js';
+import { FacialExpressionActions } from '../api/facial_expression.js';
+import { VisionActions } from '../api/vision.js';
+
 import { Programs } from './programs.js'
 
 const logger = log.getLogger('program_executor');
@@ -21,8 +26,26 @@ if (Meteor.isServer) {
 
   // TODO: update this
   const getSpeechbubbleActions = ({userId = ''} = {}) => {
-    const speechbubbleRobot = Speechbubbles.findOne({owner: userId, role: 'robot'});
-    const speechbubbleHuman = Speechbubbles.findOne({owner: userId, role: 'human'});
+    const actions = {
+        'robot': Speechbubbles.findOne({owner: userId, role: 'robot'}),
+        'human': Speechbubbles.findOne({owner: userId, role: 'human'}),
+        'synthesis': SpeechActions.findOne({owner: userId, type: 'synthesis'}),
+        'recognition': SpeechActions.findOne({owner: userId, type: 'recognition'}),
+        'sound': MediaActions.findOne({owner: userId}),
+        'eyes': FacialExpressionActions.findOne({owner: userId}),
+        'video': VisionActions.findOne({owner: userId, type: 'video_control'}),
+        'face': VisionActions.findOne({owner: userId, type: 'pose_detection'}),
+        'pose': VisionActions.findOne({owner: userId, type: 'face_detection'}),
+      }
+    }
+
+    const actionClients = {
+      'robot': getActionClient(Speechbubbles, actions.robot._id),
+    }
+
+    const robot = {
+      displayMessage: () => { actionClient.robot.sendGoal(); return actionClient; }
+    }
 
     return {
       displayMessageLeft: null,
@@ -30,12 +53,6 @@ if (Meteor.isServer) {
       askMultipleChoiceLeft: null,
       askMultipleChoiceRight: null,
     };
-    // return {
-    //   displayMessageLeft: new DisplayMessageAction({speechbubbleId: speechbubbleRobot._id}),
-    //   displayMessageRight: new DisplayMessageAction({speechbubbleId: speechbubbleHuman._id}),
-    //   askMultipleChoiceLeft: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
-    //   askMultipleChoiceRight: new AskMultipleChoiceAction({speechbubbleId: speechbubbleHuman._id}),
-    // }
   }
 
   Meteor.methods({
