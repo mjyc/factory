@@ -11,7 +11,6 @@ import {
 } from 'meteor/mjyc:simple-face';
 
 const logger = log.getLogger('fixtures');
-
 const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
 

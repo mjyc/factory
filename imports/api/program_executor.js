@@ -13,7 +13,6 @@ import { check, Match } from 'meteor/check';
 import { Programs } from './programs.js'
 
 const logger = log.getLogger('program_executor');
-
 const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
 if (Meteor.isServer) {
