@@ -4,3 +4,6 @@
 [submodule "packages/loglevel"]
 	path = packages/loglevel
 	url = git@github.com:mjyc/meteor-loglevel.git
+[submodule "packages/action"]
+	path = packages/action
+	url = git@github.com:mjyc/meteor-action.git

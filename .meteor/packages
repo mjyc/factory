@@ -24,3 +24,4 @@ accounts-google
 service-configuration
 mjyc:loglevel
 mjyc:simple-face
+mjyc:action
