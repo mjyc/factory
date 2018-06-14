@@ -21,9 +21,9 @@ Meteor.users.find().observeChanges({
   added: (id, fields) => {
     logger.debug(`[Meteor.users.find().observeChanges added] id: ${id}, fields: ${obj2str(fields)}`);
 
+    Meteor.call('actions.insert.soundPlay', id);
     Meteor.call('speechbubbles.addUser', id);
     Meteor.call('speech_actions.addUser', id);
-    Meteor.call('media_actions.addUser', id);
     Meteor.call('vision_actions.addUser', id);
     Meteor.call('facial_expression_actions.addUser', id);
   },
