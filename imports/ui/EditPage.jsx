@@ -67,7 +67,7 @@ class EditPage extends Component {
             </div>
             <div>
               <TextField
-                value={this.props.program.name}
+                defaultValue={this.props.program.name}
                 floatingLabelText='name'
                 onChange={(event, value) => {
                   Meteor.call('programs.setName', this.props.program._id, value);
