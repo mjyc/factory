@@ -85,7 +85,7 @@ class EditPage extends Component {
             </div>
             <div>
               <SimpleFace
-                faceQuery={{owner: Meteor.userId()}}
+                query={{owner: Meteor.userId()}}
                 setVideo={(video) => this.setState({video})}
               />
             </div>
