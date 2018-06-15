@@ -91,7 +91,7 @@ class EditPage extends Component {
             </div>
             <div>
               <VisionViz
-                detectionQuery={{owner: Meteor.userId()}}
+                query={{owner: Meteor.userId()}}
                 video={this.state.video}
               />
             </div>

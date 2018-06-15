@@ -2,9 +2,6 @@ import log from 'meteor/mjyc:loglevel';
 import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { Actions } from 'meteor/mjyc:action';
-import {
-  VisionActions,
-} from 'meteor/mjyc:simple-face';
 
 const logger = log.getLogger('fixtures');
 const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
@@ -22,16 +19,22 @@ Meteor.users.find().observeChanges({
     Meteor.call('actions.insert', id, 'speechRecognition');
     Meteor.call('actions.insert', id, 'speechbubbleRobot');
     Meteor.call('actions.insert', id, 'speechbubbleHuman');
-    Meteor.call('vision_actions.addUser', id);
+    Meteor.call('actions.insert', id, 'videoControl');
+    Meteor.call('actions.insert', id, 'poseDetection');
+    Meteor.call('actions.insert', id, 'faceDetection');
+
     Meteor.call('speechbubbles.insert', id, Actions.findOne({owner: id, type: 'speechbubbleRobot'})._id);
     Meteor.call('speechbubbles.insert', id, Actions.findOne({owner: id, type: 'speechbubbleHuman'})._id);
+
+    Meteor.call('detections.insert', id, Actions.findOne({owner: id, type: 'poseDetection'})._id);
+    Meteor.call('detections.insert', id, Actions.findOne({owner: id, type: 'faceDetection'})._id);
   },
 
   removed: (id) => {
     logger.debug(`[Meteor.users.find().observeChanges removed] id: ${id}`);
 
     // TODO: use Meteor method instead; need to remove more docs than as is
-    // [VisionActions].map((collection) => {
+    // [].map((collection) => {
     //   collection.remove({owner: id});
     // });
   }

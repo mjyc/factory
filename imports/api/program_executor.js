@@ -3,11 +3,6 @@ import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 
-import {
-  SpeechbubbleAction,
-  VisionActions,
-} from 'meteor/mjyc:action';
-
 import { Programs } from './programs.js'
 
 const logger = log.getLogger('program_executor');
