@@ -41,6 +41,6 @@ if (Meteor.isServer) {
       Meteor.defer(() => {
         logger.info(`result = ${obj2str(eval(code))}`);
       })
-    }
+    },
   });
 }
