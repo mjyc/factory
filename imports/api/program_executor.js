@@ -6,8 +6,6 @@ import { check, Match } from 'meteor/check';
 import {
   SpeechbubbleAction,
   SpeechActions,
-  MediaActions,
-  FacialExpressionActions,
   VisionActions,
 } from 'meteor/mjyc:action';
 
