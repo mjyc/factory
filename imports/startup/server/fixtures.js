@@ -4,8 +4,6 @@ import { Meteor } from 'meteor/meteor';
 
 import {
   Speechbubbles,
-  Speech,
-  MediaActions,
   VisionActions,
 } from 'meteor/mjyc:simple-face';
 
@@ -22,8 +20,9 @@ Meteor.users.find().observeChanges({
 
     Meteor.call('actions.insert.facialExpression', id);
     Meteor.call('actions.insert.soundPlay', id);
+    Meteor.call('actions.insert.speechSynthesis', id);
+    Meteor.call('actions.insert.speechRecognition', id);
     Meteor.call('speechbubbles.addUser', id);
-    Meteor.call('speech_actions.addUser', id);
     Meteor.call('vision_actions.addUser', id);
   },
 
