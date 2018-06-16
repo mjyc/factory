@@ -8,7 +8,7 @@ const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
 
 const actionTypes = [
-  'facialExpression',
+  'eyeExpression',
   'soundPlay',
   'speechSynthesis',
   'speechRecognition',
