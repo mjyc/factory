@@ -3,6 +3,8 @@ import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { Actions } from 'meteor/mjyc:action';
 
+import { Programs } from '../../api/programs.js';
+
 const logger = log.getLogger('fixtures');
 const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
@@ -38,6 +40,8 @@ Meteor.users.find().observeChanges({
 
   removed: (owner) => {
     logger.debug(`[Meteor.users.find().observeChanges removed] id: ${owner}`);
+
+    Programs.remove({owner});
 
     actionTypes.map((collection) => {
       Meteor.call('actions.remove', owner);

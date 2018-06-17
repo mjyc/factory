@@ -14,6 +14,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
+import Toggle from 'material-ui/Toggle';
 import PrivatePage from './PrivatePage.jsx'
 
 // MainPage component - represents the whole app for the main page
@@ -57,6 +58,7 @@ class MainPage extends Component {
             </div>
 
             <div>
+              <h3>Your Programs</h3>
               <Table
                 fixedHeader={true}
                 selectable={false}
@@ -75,7 +77,67 @@ class MainPage extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.map((program) => {
+                  this.props.programs.filter((program) => {return program.owner === Meteor.user()._id}).map((program) => {
+                    return (
+                      <TableRow key={program._id} >
+                        <TableRowColumn>{program._id}</TableRowColumn>
+                        <TableRowColumn>{program.name}</TableRowColumn>
+                        <TableRowColumn>
+                        {
+                          // slice off a name of the day, e.g. 'Mon'
+                          program.updatedAt.toDateString().slice(4)
+                        }
+                        </TableRowColumn>
+                        <TableRowColumn>
+                          <Toggle
+                            label="Private"
+                            labelPosition="right"
+                            onToggle={(event, isInputChecked) => {
+                              Meteor.call('programs.setPrivate', program._id, isInputChecked);
+                            }}
+                          />
+                          <RaisedButton
+                            label="Edit"
+                            onClick={() => {
+                              history.push(`/programs/${program._id}`);
+                            }}
+                          />
+                          <RaisedButton
+                            label="Delete"
+                            onClick={function() {
+                              Meteor.call('programs.remove', program._id);
+                            }}
+                          />
+                        </TableRowColumn>
+                      </TableRow>
+                    );
+                  })
+                }
+                </TableBody>
+              </Table>
+            </div>
+
+            <div>
+              <h3>Public Programs</h3>
+              <Table
+                fixedHeader={true}
+                selectable={false}
+                style={{margin: 0}}
+              >
+                <TableHeader
+                  displaySelectAll={false}
+                  adjustForCheckbox={false}
+                >
+                  <TableRow>
+                    <TableHeaderColumn>ID</TableHeaderColumn>
+                    <TableHeaderColumn>Title</TableHeaderColumn>
+                    <TableHeaderColumn>Last modified</TableHeaderColumn>
+                    <TableHeaderColumn>Options</TableHeaderColumn>
+                  </TableRow>
+                </TableHeader>
+                <TableBody displayRowCheckbox={false}>
+                {
+                  this.props.programs.filter((program) => {return program.owner !== Meteor.user()._id}).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>

@@ -7,9 +7,15 @@ export const Programs = new Mongo.Collection('programs');
 if (Meteor.isServer) {
   Meteor.publish('programs', function programsPublication(id) {
     // TODO: support "private" programs
-    const query = {owner: this.userId};
-    if (id) { query._id = id; }
-    return Programs.find(query);
+    // const query = {owner: this.userId};
+    // if (id) { query._id = id; }
+    // return Programs.find(query);
+    return Programs.find({
+      $or: [
+        { private: { $ne: true } },
+        { owner: this.userId },
+      ],
+    })
   });
 
   Meteor.methods({
@@ -52,6 +58,17 @@ if (Meteor.isServer) {
       }
 
       Programs.update(programId, {$set: {name}})
+    },
+
+    'programs.setPrivate'(programId, private) {
+      check(programId, String);
+      check(private, Boolean);
+
+      if (!this.userId) {
+        throw new Meteor.Error('not-authorized');
+      }
+
+      Programs.update(programId, {$set: {private}})
     },
 
     'programs.setCode'(programId, code) {
