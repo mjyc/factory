@@ -62,7 +62,7 @@ class MainPage extends Component {
               <Table
                 fixedHeader={true}
                 selectable={false}
-                style={{ margin: 0 }}
+                style={{margin: 0}}
               >
                 <TableHeader
                   displaySelectAll={false}
@@ -93,7 +93,7 @@ class MainPage extends Component {
                           <Checkbox
                             checked={program.private}
                             onCheck={(event, isInputChecked) => {
-                              Meteor.call('programs.setPrivate', program._id, isInputChecked);
+                              Programs.update(program._id, {$set: {private: isInputChecked}});
                             }}
                           />
                         </TableRowColumn>
@@ -107,7 +107,7 @@ class MainPage extends Component {
                           <RaisedButton
                             label="Delete"
                             onClick={function() {
-                              Meteor.call('programs.remove', program._id);
+                              Programs.remove(program._id);
                             }}
                           />
                         </TableRowColumn>
@@ -155,6 +155,8 @@ class MainPage extends Component {
                             label="Run"
                             onClick={() => {
                               console.log('run clicked!');
+                              Programs.remove(program._id);
+                              Programs.update(program._id, {$set: {'test': true}});
                             }}
                           />
                         </TableRowColumn>

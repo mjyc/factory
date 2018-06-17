@@ -70,7 +70,7 @@ class EditPage extends Component {
                 defaultValue={this.props.program.name}
                 floatingLabelText='name'
                 onChange={(event, value) => {
-                  Meteor.call('programs.setName', this.props.program._id, value);
+                  Programs.update(this.props.program._id, {$set: {name: value}});
                 }}
               />
             </div>
@@ -79,7 +79,7 @@ class EditPage extends Component {
                 value={this.props.program.code}
                 options={options}
                 onChange={(value) => {
-                  Meteor.call('programs.setCode', this.props.program._id, value);
+                  Programs.update(this.props.program._id, {$set: {code: value}});
                 }}
               />
             </div>
