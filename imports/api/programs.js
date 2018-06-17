@@ -6,10 +6,6 @@ export const Programs = new Mongo.Collection('programs');
 
 if (Meteor.isServer) {
   Meteor.publish('programs', function programsPublication(id) {
-    // TODO: support "private" programs
-    // const query = {owner: this.userId};
-    // if (id) { query._id = id; }
-    // return Programs.find(query);
     return Programs.find({
       $or: [
         { private: { $ne: true } },
@@ -30,6 +26,7 @@ if (Meteor.isServer) {
       Programs.insert({
         name,
         code,
+        private: true,
         createdAt: new Date(),
         updatedAt: new Date(),
         owner: this.userId,
@@ -41,7 +38,6 @@ if (Meteor.isServer) {
       check(programId, String);
 
       const program = Programs.findOne(programId);
-      // TODO: consider supporting "private" programs
       if (program.owner !== this.userId) {
         throw new Meteor.Error('not-authorized');
       }
@@ -53,7 +49,8 @@ if (Meteor.isServer) {
       check(programId, String);
       check(name, String);
 
-      if (!this.userId) {
+      const program = Programs.findOne(programId);
+      if (program.owner !== this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -64,7 +61,8 @@ if (Meteor.isServer) {
       check(programId, String);
       check(private, Boolean);
 
-      if (!this.userId) {
+      const program = Programs.findOne(programId);
+      if (program.owner !== this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 
@@ -75,7 +73,8 @@ if (Meteor.isServer) {
       check(programId, String);
       check(code, String);
 
-      if (!this.userId) {
+      const program = Programs.findOne(programId);
+      if (program.owner !== this.userId) {
         throw new Meteor.Error('not-authorized');
       }
 

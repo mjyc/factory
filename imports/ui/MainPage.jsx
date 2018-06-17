@@ -14,7 +14,7 @@ import {
   TableRowColumn,
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
-import Toggle from 'material-ui/Toggle';
+import Checkbox from 'material-ui/Checkbox';
 import PrivatePage from './PrivatePage.jsx'
 
 // MainPage component - represents the whole app for the main page
@@ -72,6 +72,7 @@ class MainPage extends Component {
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Title</TableHeaderColumn>
                     <TableHeaderColumn>Last modified</TableHeaderColumn>
+                    <TableHeaderColumn>Private</TableHeaderColumn>
                     <TableHeaderColumn>Options</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
@@ -89,13 +90,14 @@ class MainPage extends Component {
                         }
                         </TableRowColumn>
                         <TableRowColumn>
-                          <Toggle
-                            label="Private"
-                            labelPosition="right"
-                            onToggle={(event, isInputChecked) => {
+                          <Checkbox
+                            checked={program.private}
+                            onCheck={(event, isInputChecked) => {
                               Meteor.call('programs.setPrivate', program._id, isInputChecked);
                             }}
                           />
+                        </TableRowColumn>
+                        <TableRowColumn>
                           <RaisedButton
                             label="Edit"
                             onClick={() => {
@@ -150,15 +152,9 @@ class MainPage extends Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <RaisedButton
-                            label="Edit"
+                            label="Run"
                             onClick={() => {
-                              history.push(`/programs/${program._id}`);
-                            }}
-                          />
-                          <RaisedButton
-                            label="Delete"
-                            onClick={function() {
-                              Meteor.call('programs.remove', program._id);
+                              console.log('run clicked!');
                             }}
                           />
                         </TableRowColumn>
