@@ -11,13 +11,9 @@ import PrivatePage from './PrivatePage.jsx'
 class VisualizerPage extends Component {
   constructor(props) {
     super(props);
-
-    this.elements = {}
-  }
-
-  componentDidMount() {
-    console.log('1111');
-    setupCamera(this.elements.video);
+    this.state = {
+      video: null,
+    }
   }
 
   render() {
@@ -29,17 +25,22 @@ class VisualizerPage extends Component {
             <div>
               <video
                 style={{display: 'none'}}
-                ref={(element) => { console.log('------'); this.elements['video'] = element; }}
+                ref={(element) => {
+                  if (!this.state.video) {
+                    setupCamera(element);
+                    this.setState({video: element});
+                  }
+                }}
                 width="600px"
                 height="500px"
                 autoPlay
               />
             </div>
-            {this.props.currentUser && this.elements ? (
+            {this.props.currentUser && this.state.video ? (
               <div>
                 <VisionViz
-                  query={{owner: this.props.currentUser._id}}
-                  video={this.elements.video}
+                  query={{owner: Meteor.userId()}}
+                  video={this.state.video}
                 />
               </div>
             ) : null}
