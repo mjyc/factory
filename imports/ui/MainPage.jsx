@@ -18,6 +18,7 @@ import Checkbox from 'material-ui/Checkbox';
 import OpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import PrivatePage from './PrivatePage.jsx'
 
+
 // MainPage component - represents the whole app for the main page
 class MainPage extends Component {
   constructor(props) {
@@ -25,24 +26,15 @@ class MainPage extends Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return (
-        <div>Loading...</div>
-      )
+    if (this.props.loading || !this.props.currentUser) {
+      return null;
     }
 
-    const history = this.props.history;
     return (
       <PrivatePage>
         <MuiThemeProvider>
           <div>
             <div>
-              <RaisedButton
-                label="Home"
-                onClick={() => {
-                  history.push('/');
-                }}
-              />
               <RaisedButton
                 label="Face"
                 labelPosition="before"
@@ -53,9 +45,11 @@ class MainPage extends Component {
               />
               <RaisedButton
                 label="Media Files"
+                labelPosition="before"
                 onClick={() => {
-                  history.push('/media_files');
+                  window.open('/media_files');
                 }}
+                icon={<OpenInNew />}
               />
               <RaisedButton
                 label="Log out"

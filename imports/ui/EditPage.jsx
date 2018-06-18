@@ -19,6 +19,7 @@ import PrivatePage from './PrivatePage.jsx'
 
 const logger = log.getLogger('EditPage');
 
+
 // EdiPage component - represents the whole app for the edit page
 class EditPage extends Component {
   constructor(props) {
@@ -30,9 +31,7 @@ class EditPage extends Component {
 
   render() {
     if (this.props.loading) {
-      return (
-        <div>Loading...</div>
-      )
+      return null;
     }
 
     const history = this.props.history;

@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import { Redirect } from 'react-router';
 import { withTracker } from 'meteor/react-meteor-data';
 
+
 class PrivatePage extends Component {
   constructor(props) {
     super(props);

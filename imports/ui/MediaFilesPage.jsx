@@ -12,7 +12,6 @@ export default class MediaFilesPage extends Component {
   }
 
   render() {
-    const history = this.props.history;
     return (
       <PrivatePage>
         <MuiThemeProvider>

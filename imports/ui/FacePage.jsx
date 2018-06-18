@@ -7,23 +7,26 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { SimpleFace } from 'meteor/mjyc:simple-face'
 import PrivatePage from './PrivatePage.jsx'
 
+
 class FacePage extends Component {
   constructor(props) {
     super(props);
   }
 
   render() {
+    if (!this.props.currentUser) {
+      return null;
+    }
+
     const history = this.props.history;
     return (
       <PrivatePage>
         <MuiThemeProvider>
-          {this.props.currentUser ? (
-            <div>
-              <SimpleFace
-                query={{owner: this.props.currentUser._id}}
-              />
-            </div>
-          ) : null}
+          <div>
+            <SimpleFace
+              query={{owner: this.props.currentUser._id}}
+            />
+          </div>
         </MuiThemeProvider>
       </PrivatePage>
     )
