@@ -26,13 +26,10 @@ class MainPage extends Component {
   }
 
   render() {
-    if (this.props.loading || !this.props.currentUser) {
-      return null;
-    }
-
     return (
       <PrivatePage>
         <MuiThemeProvider>
+          {!this.props.loading && this.props.currentUser ? (
           <div>
             <div>
               <RaisedButton
@@ -90,7 +87,9 @@ class MainPage extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner === this.props.currentUser._id}).map((program) => {
+                  this.props.programs.filter((program) => {
+                    return program.owner === this.props.currentUser._id;
+                  }).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>
@@ -106,7 +105,9 @@ class MainPage extends Component {
                           <Checkbox
                             checked={program.private}
                             onCheck={(event, isInputChecked) => {
-                              Programs.update(program._id, {$set: {private: isInputChecked}});
+                              Programs.update(program._id, {
+                                $set: {private: isInputChecked}
+                              });
                             }}
                           />
                         </TableRowColumn>
@@ -155,7 +156,9 @@ class MainPage extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner !== this.props.currentUser._id}).map((program) => {
+                  this.props.programs.filter((program) => {
+                    return program.owner !== this.props.currentUser._id;
+                  }).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>
@@ -173,7 +176,9 @@ class MainPage extends Component {
                             onClick={() => {
                               console.log('run clicked!');
                               Programs.remove(program._id);
-                              Programs.update(program._id, {$set: {'test': true}});
+                              Programs.update(program._id, {
+                                $set: {'test': true}
+                              });
                             }}
                           />
                         </TableRowColumn>
@@ -185,6 +190,7 @@ class MainPage extends Component {
               </Table>
             </div>
           </div>
+          ): null}
         </MuiThemeProvider>
       </PrivatePage>
     )

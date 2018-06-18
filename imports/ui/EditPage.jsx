@@ -24,16 +24,9 @@ const logger = log.getLogger('EditPage');
 class EditPage extends Component {
   constructor(props) {
     super(props);
-    this.state = {
-      video: null,
-    }
   }
 
   render() {
-    if (this.props.loading) {
-      return null;
-    }
-
     const history = this.props.history;
     const options = {
       lineNumbers: true,
@@ -42,6 +35,7 @@ class EditPage extends Component {
     return (
       <PrivatePage>
         <MuiThemeProvider>
+          {!this.props.loading ? (
           <div>
             <div>
               <RaisedButton
@@ -70,19 +64,8 @@ class EditPage extends Component {
                 }}
               />
             </div>
-            <div>
-              <SimpleFace
-                query={{owner: Meteor.userId()}}
-                setVideo={(video) => this.setState({video})}
-              />
-            </div>
-            <div>
-              <VisionViz
-                query={{owner: Meteor.userId()}}
-                video={this.state.video}
-              />
-            </div>
           </div>
+          ) : null}
         </MuiThemeProvider>
       </PrivatePage>
     );

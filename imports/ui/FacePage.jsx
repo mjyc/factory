@@ -14,18 +14,15 @@ class FacePage extends Component {
   }
 
   render() {
-    if (!this.props.currentUser) {
-      return null;
-    }
-
-    const history = this.props.history;
     return (
       <PrivatePage>
         <MuiThemeProvider>
           <div>
+            {this.props.currentUser ? (
             <SimpleFace
               query={{owner: this.props.currentUser._id}}
             />
+            ) : null}
           </div>
         </MuiThemeProvider>
       </PrivatePage>
