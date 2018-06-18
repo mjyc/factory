@@ -33,7 +33,10 @@ class EditPage extends Component {
       mode: 'javascript',
     };
     return (
-      <PrivatePage>
+      <PrivatePage
+        loggingIn={this.props.loggingIn}
+        currentUser={this.props.currentUser}
+      >
         <MuiThemeProvider>
           {!this.props.loading ? (
           <div>
@@ -74,11 +77,11 @@ class EditPage extends Component {
 
 export default withTracker(({match}) => {
   const programsHandle = Meteor.subscribe('programs', match.params.id);
-  const loading = !programsHandle.ready();
-  const program = Programs.findOne();
 
   return {
-    loading,
-    program,
+    loggingIn: Meteor.loggingIn(),
+    currentUser: Meteor.user(),
+    loading: !programsHandle.ready(),
+    program: Programs.findOne(),
   };
 })(EditPage);

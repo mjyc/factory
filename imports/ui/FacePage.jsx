@@ -15,7 +15,10 @@ class FacePage extends Component {
 
   render() {
     return (
-      <PrivatePage>
+      <PrivatePage
+        loggingIn={this.props.loggingIn}
+        currentUser={this.props.currentUser}
+      >
         <MuiThemeProvider>
           <div>
             {this.props.currentUser ? (
@@ -31,9 +34,8 @@ class FacePage extends Component {
 }
 
 export default withTracker(({match}) => {
-  const currentUser = Meteor.user();
-
   return {
-    currentUser
+    loggingIn: Meteor.loggingIn(),
+    currentUser: Meteor.user(),
   };
 })(FacePage);

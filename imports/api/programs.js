@@ -19,12 +19,14 @@ if (Meteor.isServer) {
   });
 
   Meteor.publish('programs', function programsPublication(id) {
-    return Programs.find({
+    const query = {
       $or: [
         { private: { $ne: true } },
         { owner: this.userId },
       ],
-    })
+    };
+    if (id) query._id = id;
+    return Programs.find(query)
   });
 
   Meteor.methods({

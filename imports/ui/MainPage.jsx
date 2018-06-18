@@ -27,7 +27,10 @@ class MainPage extends Component {
 
   render() {
     return (
-      <PrivatePage>
+      <PrivatePage
+        loggingIn={this.props.loggingIn}
+        currentUser={this.props.currentUser}
+      >
         <MuiThemeProvider>
           {!this.props.loading && this.props.currentUser ? (
           <div>
@@ -199,13 +202,11 @@ class MainPage extends Component {
 
 export default withTracker(() => {
   const programsHandle = Meteor.subscribe('programs');
-  const loading = !programsHandle.ready();
-  const programs = Programs.find().fetch();
-  const currentUser = Meteor.user();
 
   return {
-    loading,
-    programs,
-    currentUser,
+    loggingIn: Meteor.loggingIn(),
+    currentUser: Meteor.user(),
+    loading: !programsHandle.ready(),
+    programs: Programs.find().fetch(),
   };
 })(MainPage);
