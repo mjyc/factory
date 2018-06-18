@@ -23,5 +23,5 @@ react-meteor-data
 accounts-google
 service-configuration
 mjyc:loglevel
-mjyc:simple-face
 mjyc:action
+mjyc:robot-face

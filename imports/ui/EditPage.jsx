@@ -14,7 +14,7 @@ import 'codemirror/mode/javascript/javascript';
 import {
   SimpleFace,
   VisionViz,
-} from 'meteor/mjyc:simple-face'
+} from 'meteor/mjyc:robot-face'
 import PrivatePage from './PrivatePage.jsx'
 
 const logger = log.getLogger('EditPage');
