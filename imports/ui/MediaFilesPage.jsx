@@ -5,8 +5,8 @@ import RaisedButton from 'material-ui/RaisedButton';
 import { MediaFileManager } from 'meteor/mjyc:simple-face'
 import PrivatePage from './PrivatePage.jsx'
 
-// SettingsPage component - represents the whole app for the main page
-export default class SettingsPage extends Component {
+// MediaFilesPage component - represents the whole app for the media files page
+export default class MediaFilesPage extends Component {
   constructor(props) {
     super(props);
   }
@@ -33,7 +33,6 @@ export default class SettingsPage extends Component {
               />
             </div>
 
-            <h3>Media file manager</h3>
             <MediaFileManager />
 
           </div>

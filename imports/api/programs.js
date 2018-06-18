@@ -36,6 +36,7 @@ if (Meteor.isServer) {
         throw new Meteor.Error('not-authorized');
       }
 
+      const currentUser = Meteor.users.findOne(this.userId);
       Programs.insert({
         name,
         code,
@@ -43,7 +44,7 @@ if (Meteor.isServer) {
         createdAt: new Date(),
         updatedAt: new Date(),
         owner: this.userId,
-        username: Meteor.users.findOne(this.userId).username,
+        username: currentUser.username || currentUser.profile.name,
       });
     },
   });

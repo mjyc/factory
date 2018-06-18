@@ -44,9 +44,9 @@ class MainPage extends Component {
                 }}
               />
               <RaisedButton
-                label="Settings"
+                label="Media Files"
                 onClick={() => {
-                  history.push('/settings');
+                  history.push('/media_files');
                 }}
               />
               <RaisedButton
@@ -71,6 +71,7 @@ class MainPage extends Component {
                   <TableRow>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Title</TableHeaderColumn>
+                    <TableHeaderColumn>Owner</TableHeaderColumn>
                     <TableHeaderColumn>Last modified</TableHeaderColumn>
                     <TableHeaderColumn>Private</TableHeaderColumn>
                     <TableHeaderColumn>Options</TableHeaderColumn>
@@ -78,11 +79,12 @@ class MainPage extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.filter((program) => {return program.owner === Meteor.user()._id}).map((program) => {
+                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner !== this.props.currentUser._id}).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>
                         <TableRowColumn>{program.name}</TableRowColumn>
+                        <TableRowColumn>{program.username}</TableRowColumn>
                         <TableRowColumn>
                         {
                           // slice off a name of the day, e.g. 'Mon'
@@ -101,7 +103,7 @@ class MainPage extends Component {
                           <RaisedButton
                             label="Edit"
                             onClick={() => {
-                              history.push(`/programs/${program._id}`);
+                              history.push(`/program/${program._id}`);
                             }}
                           />
                           <RaisedButton
@@ -133,17 +135,19 @@ class MainPage extends Component {
                   <TableRow>
                     <TableHeaderColumn>ID</TableHeaderColumn>
                     <TableHeaderColumn>Title</TableHeaderColumn>
+                    <TableHeaderColumn>Owner</TableHeaderColumn>
                     <TableHeaderColumn>Last modified</TableHeaderColumn>
                     <TableHeaderColumn>Options</TableHeaderColumn>
                   </TableRow>
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.filter((program) => {return program.owner !== Meteor.user()._id}).map((program) => {
+                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner !== this.props.currentUser._id}).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>
                         <TableRowColumn>{program.name}</TableRowColumn>
+                        <TableRowColumn>{program.username}</TableRowColumn>
                         <TableRowColumn>
                         {
                           // slice off a name of the day, e.g. 'Mon'
@@ -179,9 +183,11 @@ export default withTracker(() => {
   const programsHandle = Meteor.subscribe('programs');
   const loading = !programsHandle.ready();
   const programs = Programs.find().fetch();
+  const currentUser = Meteor.user();
 
   return {
     loading,
     programs,
+    currentUser,
   };
 })(MainPage);
