@@ -52,14 +52,6 @@ class MainPage extends Component {
                 icon={<OpenInNew />}
               />
               <RaisedButton
-                label="Visualizer"
-                labelPosition="before"
-                onClick={() => {
-                  window.open('/visualizer');
-                }}
-                icon={<OpenInNew />}
-              />
-              <RaisedButton
                 label="Media Files"
                 onClick={() => {
                   history.push('/media_files');
