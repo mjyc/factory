@@ -15,6 +15,7 @@ import {
 } from 'material-ui/Table';
 import RaisedButton from 'material-ui/RaisedButton';
 import Checkbox from 'material-ui/Checkbox';
+import OpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import PrivatePage from './PrivatePage.jsx'
 
 // MainPage component - represents the whole app for the main page
@@ -35,12 +36,11 @@ class MainPage extends Component {
       <PrivatePage>
         <MuiThemeProvider>
           <div>
-
             <div>
               <RaisedButton
-                label="New"
+                label="Home"
                 onClick={() => {
-                  Meteor.call('programs.insert', 'Untitled');
+                  history.push('/');
                 }}
               />
               <RaisedButton
@@ -53,6 +53,15 @@ class MainPage extends Component {
                 label="Log out"
                 onClick={() => {
                   Meteor.logout();
+                }}
+              />
+            </div>
+
+            <div>
+              <RaisedButton
+                label="New"
+                onClick={() => {
+                  Meteor.call('programs.insert', 'Untitled');
                 }}
               />
             </div>
@@ -79,7 +88,7 @@ class MainPage extends Component {
                 </TableHeader>
                 <TableBody displayRowCheckbox={false}>
                 {
-                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner !== this.props.currentUser._id}).map((program) => {
+                  this.props.programs.filter((program) => {return this.props.currentUser && program.owner === this.props.currentUser._id}).map((program) => {
                     return (
                       <TableRow key={program._id} >
                         <TableRowColumn>{program._id}</TableRowColumn>
@@ -102,9 +111,11 @@ class MainPage extends Component {
                         <TableRowColumn>
                           <RaisedButton
                             label="Edit"
+                            labelPosition="before"
                             onClick={() => {
-                              history.push(`/program/${program._id}`);
+                              window.open(`/program/${program._id}`);
                             }}
+                            icon={<OpenInNew />}
                           />
                           <RaisedButton
                             label="Delete"
@@ -171,7 +182,6 @@ class MainPage extends Component {
                 </TableBody>
               </Table>
             </div>
-
           </div>
         </MuiThemeProvider>
       </PrivatePage>

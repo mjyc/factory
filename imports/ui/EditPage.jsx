@@ -46,22 +46,10 @@ class EditPage extends Component {
           <div>
             <div>
               <RaisedButton
-                label="Home"
-                onClick={() => {
-                  history.push('/');
-                }}
-              />
-              <RaisedButton
                 label="Run"
                 onClick={() => {
                   logger.log(`run: ${this.props.program.code}`);
                   Meteor.call('program_executor.run', this.props.program.code);
-                }}
-              />
-              <RaisedButton
-                label="Log out"
-                onClick={() => {
-                  Meteor.logout();
                 }}
               />
             </div>

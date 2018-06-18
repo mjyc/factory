@@ -17,24 +17,7 @@ export default class MediaFilesPage extends Component {
       <PrivatePage>
         <MuiThemeProvider>
           <div>
-
-            <div>
-              <RaisedButton
-                label="Home"
-                onClick={() => {
-                  history.push('/');
-                }}
-              />
-              <RaisedButton
-                label="Log out"
-                onClick={() => {
-                  Meteor.logout();
-                }}
-              />
-            </div>
-
             <MediaFileManager />
-
           </div>
         </MuiThemeProvider>
       </PrivatePage>
