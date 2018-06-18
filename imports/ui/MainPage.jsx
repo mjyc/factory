@@ -44,6 +44,22 @@ class MainPage extends Component {
                 }}
               />
               <RaisedButton
+                label="Face"
+                labelPosition="before"
+                onClick={() => {
+                  window.open('/face');
+                }}
+                icon={<OpenInNew />}
+              />
+              <RaisedButton
+                label="Visualizer"
+                labelPosition="before"
+                onClick={() => {
+                  window.open('/visualizer');
+                }}
+                icon={<OpenInNew />}
+              />
+              <RaisedButton
                 label="Media Files"
                 onClick={() => {
                   history.push('/media_files');
