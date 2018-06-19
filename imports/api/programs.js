@@ -21,8 +21,8 @@ if (Meteor.isServer) {
   Meteor.publish('programs', function programsPublication(id) {
     const query = {
       $or: [
-        { private: { $ne: true } },
-        { owner: this.userId },
+        {private: {$ne: true}},
+        {owner: this.userId},
       ],
     };
     if (id) query._id = id;

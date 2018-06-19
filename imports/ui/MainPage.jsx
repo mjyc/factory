@@ -175,13 +175,17 @@ class MainPage extends Component {
                         </TableRowColumn>
                         <TableRowColumn>
                           <RaisedButton
+                            label="View"
+                            labelPosition="before"
+                            onClick={() => {
+                              window.open(`/program/${program._id}`);
+                            }}
+                            icon={<OpenInNew />}
+                          />
+                          <RaisedButton
                             label="Run"
                             onClick={() => {
-                              console.log('run clicked!');
-                              Programs.remove(program._id);
-                              Programs.update(program._id, {
-                                $set: {'test': true}
-                              });
+                              Meteor.call('program_executor.run', program.code);
                             }}
                           />
                         </TableRowColumn>
