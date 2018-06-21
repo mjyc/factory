@@ -2,7 +2,7 @@ import log from 'meteor/mjyc:loglevel';
 import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
-import { Actions, getActionClient } from 'meteor/mjyc:action';
+import { Actions, getActionClient, Detections } from 'meteor/mjyc:action';
 
 import { Programs } from './programs.js'
 
