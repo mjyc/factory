@@ -41,7 +41,7 @@ if (Meteor.isServer) {
 
       logger.debug(`executing code: ${code}`);
       Meteor.defer(() => {
-        logger.info(`result = ${obj2str(eval(code))}`);
+        logger.info(`eval output: ${obj2str(eval(code))}`);
       })
     },
   });
