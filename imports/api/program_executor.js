@@ -11,7 +11,7 @@ const obj2str = (obj) => { return util.inspect(obj, true, null, true); }
 
 
 if (Meteor.isServer) {
-    Meteor.methods({
+  Meteor.methods({
     // TODO: make sure one can run multiple programs in parallel!
     'program_executor.run'(code) {
       const owner = this.userId;
