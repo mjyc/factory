@@ -13,7 +13,7 @@ import CodeMirror from 'react-codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 import {
-  SimpleFace,
+  RobotFace,
   VisionViz,
 } from 'meteor/mjyc:robot-face'
 import PrivatePage from './PrivatePage.jsx'

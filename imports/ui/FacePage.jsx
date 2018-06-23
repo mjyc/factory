@@ -4,7 +4,7 @@ import { withTracker } from 'meteor/react-meteor-data';
 
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
-import { SimpleFace } from 'meteor/mjyc:robot-face'
+import { RobotFace } from 'meteor/mjyc:robot-face'
 import PrivatePage from './PrivatePage.jsx'
 
 
@@ -22,7 +22,7 @@ class FacePage extends Component {
         <MuiThemeProvider>
           <div>
             {this.props.currentUser ? (
-            <SimpleFace
+            <RobotFace
               query={{owner: this.props.currentUser._id}}
             />
             ) : null}

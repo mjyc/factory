@@ -3,6 +3,7 @@ import util from 'util';
 import { Meteor } from 'meteor/meteor';
 import { check, Match } from 'meteor/check';
 import { Actions, getActionClient } from 'meteor/mjyc:action';
+// TODO: remove this once we share detection outputs as action feedback
 import { Detections } from 'meteor/mjyc:robot-face'
 
 import { Programs } from './programs.js'
