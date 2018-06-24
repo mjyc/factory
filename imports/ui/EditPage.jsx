@@ -8,11 +8,12 @@ import { Programs } from '../api/programs.js'
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
+import OpenInNew from 'material-ui/svg-icons/action/open-in-new';
 import CodeMirror from 'react-codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/mode/javascript/javascript';
 import {
-  SimpleFace,
+  RobotFace,
   VisionViz,
 } from 'meteor/mjyc:robot-face'
 import PrivatePage from './PrivatePage.jsx'
@@ -40,6 +41,16 @@ class EditPage extends Component {
         <MuiThemeProvider>
           {!this.props.loading ? (
           <div>
+            <div>
+              <RaisedButton
+                label="Face"
+                labelPosition="before"
+                onClick={() => {
+                  window.open('/face');
+                }}
+                icon={<OpenInNew />}
+              />
+            </div>
             <div>
               <RaisedButton
                 label="Run"
