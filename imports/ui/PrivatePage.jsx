@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
 import { Redirect } from 'react-router';
-import { withTracker } from 'meteor/react-meteor-data';
 
-class PrivatePage extends Component {
+
+export default class PrivatePage extends Component {
   constructor(props) {
     super(props);
   }
@@ -32,10 +32,3 @@ class PrivatePage extends Component {
     );
   }
 }
-
-export default withTracker(() => {
-  return {
-    loggingIn: Meteor.loggingIn(),
-    currentUser: Meteor.user(),
-  };
-})(PrivatePage);

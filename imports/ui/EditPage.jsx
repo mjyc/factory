@@ -1,18 +1,24 @@
-import * as log from 'loglevel';
-import 'codemirror/lib/codemirror.css';
+import log from 'meteor/mjyc:loglevel';
 import React, { Component } from 'react';
-import CodeMirror from 'react-codemirror';
-import 'codemirror/mode/javascript/javascript';
+import { Meteor } from 'meteor/meteor';
+import { withTracker } from 'meteor/react-meteor-data';
+
+import { Programs } from '../api/programs.js'
+
 import MuiThemeProvider from 'material-ui/styles/MuiThemeProvider';
 import RaisedButton from 'material-ui/RaisedButton';
 import TextField from 'material-ui/TextField';
-import { Meteor } from 'meteor/meteor';
-import { withTracker } from 'meteor/react-meteor-data';
-import { SimpleFace } from 'meteor/simple-face'
+import CodeMirror from 'react-codemirror';
+import 'codemirror/lib/codemirror.css';
+import 'codemirror/mode/javascript/javascript';
+import {
+  SimpleFace,
+  VisionViz,
+} from 'meteor/mjyc:robot-face'
 import PrivatePage from './PrivatePage.jsx'
-import { Programs } from '../api/programs.js'
 
 const logger = log.getLogger('EditPage');
+
 
 // EdiPage component - represents the whole app for the edit page
 class EditPage extends Component {
@@ -21,28 +27,20 @@ class EditPage extends Component {
   }
 
   render() {
-    if (this.props.loading) {
-      return (
-        <div>Loading...</div>
-      )
-    }
-
     const history = this.props.history;
     const options = {
       lineNumbers: true,
       mode: 'javascript',
     };
     return (
-      <PrivatePage>
+      <PrivatePage
+        loggingIn={this.props.loggingIn}
+        currentUser={this.props.currentUser}
+      >
         <MuiThemeProvider>
+          {!this.props.loading ? (
           <div>
             <div>
-              <RaisedButton
-                label="Home"
-                onClick={() => {
-                  history.push('/');
-                }}
-              />
               <RaisedButton
                 label="Run"
                 onClick={() => {
@@ -50,19 +48,13 @@ class EditPage extends Component {
                   Meteor.call('program_executor.run', this.props.program.code);
                 }}
               />
-              <RaisedButton
-                label="Log out"
-                onClick={() => {
-                  Meteor.logout();
-                }}
-              />
             </div>
             <div>
               <TextField
-                value={this.props.program.name}
+                defaultValue={this.props.program.name}
                 floatingLabelText='name'
                 onChange={(event, value) => {
-                  Meteor.call('programs.setName', this.props.program._id, value);
+                  Programs.update(this.props.program._id, {$set: {name: value}});
                 }}
               />
             </div>
@@ -71,14 +63,12 @@ class EditPage extends Component {
                 value={this.props.program.code}
                 options={options}
                 onChange={(value) => {
-                  Meteor.call('programs.setCode', this.props.program._id, value);
+                  Programs.update(this.props.program._id, {$set: {code: value}});
                 }}
               />
             </div>
-            <div>
-              <SimpleFace faceQuery={{owner: Meteor.userId()}} />
-            </div>
           </div>
+          ) : null}
         </MuiThemeProvider>
       </PrivatePage>
     );
@@ -87,11 +77,11 @@ class EditPage extends Component {
 
 export default withTracker(({match}) => {
   const programsHandle = Meteor.subscribe('programs', match.params.id);
-  const loading = !programsHandle.ready();
-  const program = Programs.findOne();
 
   return {
-    loading,
-    program,
+    loggingIn: Meteor.loggingIn(),
+    currentUser: Meteor.user(),
+    loading: !programsHandle.ready(),
+    program: Programs.findOne(),
   };
 })(EditPage);

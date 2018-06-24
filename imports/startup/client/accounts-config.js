@@ -1,7 +1,7 @@
 import { Accounts } from 'meteor/accounts-base';
 
 Accounts.config({
-  forbidClientAccountCreation: true,
+  forbidClientAccountCreation: Meteor.settings.public.accounts.forbidClientAccountCreation,
 });
 
 Accounts.ui.config({

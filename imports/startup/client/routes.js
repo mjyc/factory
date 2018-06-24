@@ -6,6 +6,8 @@ import createBrowserHistory from 'history/createBrowserHistory';
 import AccountsUIWrapper from '../../ui/AccountsUIWrapper.jsx'
 import MainPage from '../../ui/MainPage.jsx'
 import EditPage from '../../ui/EditPage.jsx'
+import MediaFilesPage from '../../ui/MediaFilesPage.jsx'
+import FacePage from '../../ui/FacePage.jsx'
 
 const browserHistory = createBrowserHistory();
 
@@ -14,7 +16,9 @@ export const renderRoutes = () => (
     <Switch>
       <Route exact path="/login" component={AccountsUIWrapper}/>
       <Route exact path="/" component={MainPage}/>
-      <Route exact path="/programs/:id" component={EditPage}/>
+      <Route exact path="/program/:id" component={EditPage}/>
+      <Route exact path="/media_files" component={MediaFilesPage}/>
+      <Route exact path="/face" component={FacePage}/>
     </Switch>
   </Router>
 );

@@ -3,7 +3,7 @@ import { Accounts } from 'meteor/accounts-base';
 import { ServiceConfiguration } from 'meteor/service-configuration'
 
 Accounts.config({
-  restrictCreationByEmailDomain: 'cs.washington.edu',  // TODO: move to Meteor.settings
+  restrictCreationByEmailDomain: Meteor.settings.accounts.restrictCreationByEmailDomain,
 });
 
 Meteor.startup(() => {

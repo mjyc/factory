@@ -1,3 +1,9 @@
-[submodule "packages/simple-face"]
-	path = packages/simple-face
-	url = git@gitlab.cs.washington.edu:mjyc/simple-face.git
+[submodule "packages/robot-face"]
+	path = packages/robot-face
+	url = git@gitlab.cs.washington.edu:mjyc/meteor-robot-face.git
+[submodule "packages/loglevel"]
+	path = packages/loglevel
+	url = git@github.com:mjyc/meteor-loglevel.git
+[submodule "packages/action"]
+	path = packages/action
+	url = git@github.com:mjyc/meteor-action.git
