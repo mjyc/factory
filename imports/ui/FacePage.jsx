@@ -24,6 +24,7 @@ class FacePage extends Component {
             {this.props.currentUser ? (
             <RobotFace
               query={{owner: this.props.currentUser._id}}
+              style={Meteor.settings.public.robotFace.style}
             />
             ) : null}
           </div>
